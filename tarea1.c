@@ -13,7 +13,7 @@ int flagrouteTXT = 0;
 char matrixRouters[MAX];
 char route[MAX];
 
-
+/* Determina si es router dado una ruta de caracteres retornando un entero (0,1)*/
 int is_router(char *A)
 {
     int i, j;
@@ -27,7 +27,7 @@ int is_router(char *A)
     }
     return 1;
 }
-
+/* Determina si es dirección dado una ruta de caracteres retornando un entero (0,1)*/
 int is_address(char *A)
 {
     int i;
@@ -69,21 +69,19 @@ void search_directory(char *route)
 
     while (1)
     {
-            /*printf("abro directorio\n");
-            printf("inicio busqueda en route: %s\n", route);*/
+        /*printf("abro directorio\n");
+        printf("inicio busqueda en route: %s\n", route);*/
 
         if (folder != NULL)
             folder = NULL;
 		
             folder = opendir(route); 
             /* Abro directorio folder en el path que correspondes */
-		    rewinddir(folder);
-	     
-		     /*printf("puntero folder: %x\n", folder);*/
+		        rewinddir(folder);
+		        /*printf("puntero folder: %x\n", folder);*/
 
         if (folder == NULL) /*Si el directorio  no existe*/
-        { 
-            /*printf("No se pudo abrir el directorio");*/
+        { /*printf("No se pudo abrir el directorio");*/
             return;
         }
             /*printf("Abri y estoy dentro del directorio\n");
@@ -103,8 +101,7 @@ void search_directory(char *route)
             { /*Si lo que encontro es un archivo, entonces*/
                 extension = strrchr(newRoute, '.');
                 if(strcmp(extension, ".txt") == 0)
-                {   
-                    /*Si la extension es .txt, entonces*/
+                {   /*Si la extension es .txt, entonces*/
                     /*printf("%s\n", pointerDirect->d_name); */
                     entrance = fopen(newRoute, "r");
                     fgets(contenText, MAX, entrance);
@@ -112,8 +109,8 @@ void search_directory(char *route)
 
                     if(flagfirst == 0 || pid == 0)
                     {
-                        flagfirst = 1; /*Se aumenta el flag para saber que ya pasó*/
-
+                        flagfirst = 1; 
+                        /*Se aumenta el flag para saber que ya pasó*/
                         int router_value = is_router(contenText);
                         int address_value = is_address(contenText);
 
@@ -121,25 +118,24 @@ void search_directory(char *route)
                         { /* Si es router haz lo siguiente*/
                             strcpy(route, contenText);
                             /*printf("\n route: %s", route);*/
-
                             for(i = 0; i < strlen(contenText); i++)
                                 matrixRouters[i] = contenText[i];
-                                pid = fork();/*crea un hijo*/
-
+                                pid = fork();
+                                /*crea un hijo*/
                             break;
                             
                         }
                         else if( address_value == 1)
                         {
                             flagrouteTXT = 1;
-                            closedir(folder); /*Cierra el directorio que se abrió*/
+                            closedir(folder); 
+                            /*Cierra el directorio que se abrió*/
                         }
                     }
                         if(address_value == 1)
                         {
-                        /*Si es dirección, imprimela por pantalla*/
-                        printf("\nEs Direccion: %s",route);  
-
+                            printf("\nLa direccion es: %s",route);
+                              /*Si es dirección, imprimela por pantalla*/
                         if (pid == 0)
                         { /*hijo*/
                             close(piper[0]);
