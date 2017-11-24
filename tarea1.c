@@ -129,13 +129,13 @@ void search_directory(char *route)
                             break;
                             
                         }
-                        else if( adress_value == 1)
+                        else if( address_value == 1)
                         {
                             flagrouteTXT = 1;
                             closedir(folder); /*Cierra el directorio que se abrió*/
                         }
                     }
-                        if(adress_value == 1)
+                        if(address_value == 1)
                         {
                         /*Si es dirección, imprimela por pantalla*/
                         printf("\nEs Direccion: %s",route);  
