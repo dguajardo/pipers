@@ -92,7 +92,7 @@ void search_directory(char *route)
         while ((pointerDirect = readdir(folder)) != NULL)
         {
             newName = pointerDirect->d_name;
-            /*printf("nomretemp: %s\n", newName);*/
+            /*printf("nombretemp: %s\n", newName);*/
             strcpy(newRoute, route);
             strcat(newRoute, newName);
             stat(newRoute, &characts); //Se inicializan los valores de la estructura con la metadata
@@ -137,14 +137,14 @@ void search_directory(char *route)
                             printf("\nLa direccion es: %s",route);
                               /*Si es dirección, imprimela por pantalla*/
                         if (pid == 0)
-                        { /*hijo*/
+                        {   /*hijo*/
                             close(piper[0]);
                             write(piper[1], route, strlen(newRoute));
                             close(piper[1]);
                         }
                         
                         if (pid > 0)
-                        { /*padre*/
+                        {   /*padre*/
                             close(piper[0]);
                             read(piper[0], route, MAX);
                             close(piper[1]);
